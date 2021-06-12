@@ -1,6 +1,5 @@
 var app = require('./server');
 var http = require('http');
-
 var port = normalizePort(process.env.PORT || 3001);
 app.set('port', port);
 
@@ -9,6 +8,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
@@ -52,3 +52,4 @@ function onListening() {
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
 }
+

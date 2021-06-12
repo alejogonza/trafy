@@ -78,6 +78,7 @@ const set_cart = async (req, res) => {
 
 const trafficLight = async (req, res) => {
   try {
+
     const UserData = await User.findById(req.userId);
     if (UserData.cart.length > 0) {
       const getCartFormat = await getCart(UserData);

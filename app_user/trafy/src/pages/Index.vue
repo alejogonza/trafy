@@ -1,65 +1,70 @@
 <template>
   <q-page class="flex flex-center">
-<div>
-<div v-if="loaded == true">
-    <div style="text-align: center; padding:10px" v-if="broken" >
-    <q-img style="width: 100%;
-    height: 100%;" src="~assets/apagado.svg"/>
-    <br>
-<h4>Semaforo en mal estado</h4>
-</div>
+    <div>
+      <div class="flex flex-center" v-if="loaded == true">
+        <div style="text-align: center; padding:10px;width: 100%;">
+          <q-img
+            style="width: 100%;
+    height: 100%;"
+            src="~assets/rojo.svg"
+          />
+          <br />
+          <span class="text">Semaforo rojo se acaba en {{ red }}</span>
+        </div>
 
-    <div style="text-align: center; padding:10px" v-if="green">
-    <q-img style="width: 100%;
-    height: 100%;" src="~assets/verde.svg"/>
-    <br>
-<h4>Semaforo verde en {{green.mts}} mts</h4>
-</div>
+        <!-- <q-btn
+          color="red-7"
+          label="Tuve un accidente"
+          style="width: 300px; margin-bottom:10px; display:block"
+        />
 
-    <div style="text-align: center; padding:10px" v-if="red" >
-    <q-img style="width: 100%;
-    height: 100%;" src="~assets/apagado.svg"/>
-    <br>
-<h4>Semaforo rojo en {{red.mts}} mts</h4>
-</div>
-
-    <div style="text-align: center; padding:10px" v-if="yellow">
-    <q-img style="width: 100%;
-    height: 100%;" src="~assets/apagado.svg"/>
-    <br>
-<h4>Semaforo amarillo en {{yellow.mts}} mts</h4>
-</div>
-
-<q-btn color="primary" label="Tuve un accidente" />
-<q-btn color="primary" label="Solicitar información del trayecto" />
-
-</div>
-<div v-else style="text-align: center; padding:10px">
-    <img
-      class="ball-one"
-      alt="Encantate logo"
-      src="~assets/logo.svg"
-      style="width: 200px;margin:auto"
-    />
-</div>
-</div>
+        <q-btn color="yellow-7" label="Solicitar información del trayecto" /> -->
+      </div>
+      <div v-else style="text-align: center; padding:10px">
+        <img
+          class="ball-one"
+          alt="Encantate logo"
+          src="~assets/logo.svg"
+          style="width: 200px;margin:auto"
+        />
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: 'PageIndex',
-  data(){
-  return{
-    broken: null,
-    green: null,
-    red: null,
-    yellow: null,
-    loaded: false
-  }
-}
-}
+  name: "PageIndex",
+  data() {
+    return {
+      red: 20,
+      loaded: false
+    };
+  },
 
+  mounted() {
+    setTimeout(() => (this.loaded = true), 2000);
+    setInterval(this.counter, 1000);
+  },
+  methods: {
+    counter() {
+      if(this.red == 8){
+           var audio = new Audio('https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3');
+   audio.play();
+         this.$q.notify({
+        message:
+          "Cometiste una infracción de tránsito: Te pasaste un semaforo en rojo",
+        color: "red",
+        position: "top"
+      });
+      }
+      setTimeout(
+        () => (this.red = this.red == 0 ? (this.red = 0) : this.red - 1),
+        2000
+      );
+    }
+  }
+};
 </script>
 <style>
 .ball-one {
@@ -72,5 +77,12 @@ export default {
   100% {
     transform: translateY(-70px);
   }
+}
+.text {
+  font-size: 25px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  display: block;
+  font-weight: 500;
 }
 </style>
