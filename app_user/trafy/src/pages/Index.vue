@@ -37,7 +37,7 @@ export default {
   name: "PageIndex",
   data() {
     return {
-      red: 20,
+      red: 60,
       loaded: false
     };
   },
@@ -48,8 +48,10 @@ export default {
   },
   methods: {
     counter() {
-      if(this.red == 8){
-           var audio = new Audio('https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3');
+      if(this.red == 23){
+          this.$emit("infracciones", 1);
+
+           var audio = new Audio('https://github.com/alejogonza/trafy/raw/main/app_user/trafy/src/assets/text.mp3');
    audio.play();
          this.$q.notify({
         message:

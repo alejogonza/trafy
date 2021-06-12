@@ -16,7 +16,7 @@
 
 
     <q-page-container>
-      <router-view />
+      <router-view @infracciones="changed"/>
     </q-page-container>
   </q-layout>
 </template>
@@ -29,8 +29,13 @@ export default {
 
   data () {
     return {
-      infracciones: 0
+      infracciones: 0 
     }
+  },
+methods:{
+  changed(prop){
+    this.infracciones = prop
   }
+}
 }
 </script>
